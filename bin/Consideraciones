@@ -1,0 +1,22 @@
+
+** 23/06 - Este TP todavía no está del todo terminado, el mismo estará terminado para el final **
+
+
+Para no hacer tan complejo el desarrollo yo supuse:
+
+	* Dividir un terreno en parcelas y cada una de estas puede contener un tipo de animal, 
+	  ejemplo: la parcela 2 tiene una vaca.
+	
+	* Cada parcela contiene una instancia de cada animal/planta, En lugar de una lista de ellos. 
+	
+	* Los productos se compran y venden en el mercado por unidad única, ejemplo: la vaca me da leche
+	 y vendo esa leceh en el mercado obteniendo un valor, siempre dará la misma cantidad y siempre 
+	 costará lo mismo.	
+	
+	* Los animales pueden venderse además del os productos que proveen, para esto suben de peso con 
+	 cada alimentación que se les da y precio final irá acorde a este peso. (tienen un limite de peso)
+	 
+	* La billetera que tiene le usuario tiene un saldo positivo inicialmente para poder comprar.
+	
+	* Existe una categoria de comestibles que son gratis y los provee la naturaleza, como el agua
+	 de manera que no se pueden ni comprar ni vender y sirven para alimentar a los animales.
