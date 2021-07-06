@@ -34,11 +34,6 @@ public class ConsolaMain {
 		
 		
 		
-		// ideas pasar una tarjeta de credito al mercado en lugar de billetera
-		// en la segunda parte hacer que se debite y en la priemra tambien
-		
-		
-		
 		
 		System.out.println("INICIO");
 		try 
@@ -50,7 +45,7 @@ public class ConsolaMain {
 			Terreno terrenoDeLaGranja = new Terreno();		
 			
 			// Creo una billetera que es donde guardaré el dinero (con saldo incial 1000)
-			Billetera miBilletera = new Billetera(1000);
+			Billetera miBilletera = new Billetera(2000);
 			System.out.println("Mi saldo es -> " + miBilletera.GetTotalDinero());
 			
 			// Creo una parcela (podría crear mas, en este caso creo una para poner una vaca)

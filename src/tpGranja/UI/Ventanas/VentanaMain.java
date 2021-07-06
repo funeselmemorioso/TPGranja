@@ -3,6 +3,7 @@ package tpGranja.UI.Ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,8 +35,12 @@ class PanelBotones extends JPanel {
 	public PanelBotones() {
 		this.setLayout(new GridLayout(1, 3));		
 		
-		JButton btnMercado = new JButton("Ver Mercado");	
-		JButton btnBilletera = new JButton("Ver Billetera");
+		JButton btnMercado = new JButton("Ver Mercado");
+		btnMercado.setBackground(new Color(1,1,1));
+		btnMercado.setForeground(Color.white);
+		JButton btnBilletera = new JButton("Ver Billetera $$");
+		btnBilletera.setBackground(new Color(1,1,1));
+		btnBilletera.setForeground(Color.white);
 		
 		btnMercado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,16 +66,18 @@ class PanelBotones extends JPanel {
 }
 
 
-class PanelParcela extends JPanel{
+class PanelParcela extends JPanel{	
 	
-	public PanelParcela(Parcela parcela) {
+	public PanelParcela(Parcela parcela) {	
 		
 		// La parcela no tiene nada
 		if(parcela.GetcontenidoParcela() == null) {
-			JButton b1 = new JButton("Agregar");
-			this.add(b1, BorderLayout.NORTH);	
+			JButton btnAgregar = new JButton("Agregar");
+			btnAgregar.setBackground(new Color(233,122,12));
+			btnAgregar.setForeground(Color.white);
+			this.add(btnAgregar, BorderLayout.NORTH);	
 			
-			b1.addActionListener(new ActionListener() {
+			btnAgregar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {					
 					try 
 					{	
@@ -89,11 +96,19 @@ class PanelParcela extends JPanel{
 		{
 			// La parcela tiene algún contenido (animal o planta)
 			JButton btnAlimentar = new JButton("Alimentar");
+			btnAlimentar.setBackground(new Color(255,87,50));
+			btnAlimentar.setForeground(Color.white);
 			JButton btnCuidar = new JButton("Cuidar");
+			btnCuidar.setBackground(new Color(88,24,60));
+			btnCuidar.setForeground(Color.white);
 			JButton btnVender = new JButton("Vender");
+			btnVender.setBackground(new Color(144,12,63));
+			btnVender.setForeground(Color.white);
 			this.add(btnAlimentar, BorderLayout.NORTH);	
 			this.add(btnCuidar, BorderLayout.NORTH);	
 			this.add(btnVender, BorderLayout.NORTH);	
+			
+			
 			
 			if(parcela.GetcontenidoParcela() instanceof AbstractPlanta) {
 				// Si es una planta, el unico alimento es agua
@@ -146,9 +161,11 @@ class PanelParcela extends JPanel{
 			// Para mostrar el botón de recolectar, debo preguntar si la parcela tiene un
 			// animal o planta que implemente IRecolectable
 			if(parcela.GetcontenidoParcela() instanceof IRecolectable) {
-				JButton b4 = new JButton("Recolectar");
-				this.add(b4, BorderLayout.NORTH);	
-				b4.addActionListener(new ActionListener() {
+				JButton btnRecolectar = new JButton("Recolectar");
+				btnRecolectar.setBackground(new Color(199,0,57));
+				btnRecolectar.setForeground(Color.white);
+				this.add(btnRecolectar, BorderLayout.NORTH);	
+				btnRecolectar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {					
 						
 						IRecolectable serVivoParcela = (IRecolectable)parcela.GetcontenidoParcela();						
@@ -194,6 +211,25 @@ class PanelParcela extends JPanel{
 	    	System.out.println(ex.toString());
         }
 	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		
+		// Sobreescribir el metodo paintComponent para pasarle una imagen
+		
+		BufferedImage image = null;
+		try 
+		{
+			image = ImageIO.read(new File("imagenes/fondo.jpg"));
+		} 
+		catch (IOException e) 
+		{			
+			e.printStackTrace();
+		}	
+		
+	    super.paintComponent(g);
+        g.drawImage(image, 0, 0, null);
+	}
 }
 
 
@@ -204,7 +240,7 @@ class PanelPrincipal extends JPanel{
 		for(int a = 0; a < parcelas.size(); a++) {			
 			PanelParcela pp = new PanelParcela(parcelas.get(a));			
 			this.add(pp);
-		}		
+		}
 	}
 }
 

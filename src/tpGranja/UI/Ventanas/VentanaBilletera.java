@@ -25,6 +25,8 @@ public class VentanaBilletera extends JFrame {
 		text.setCaretColor(Color.BLACK);
 		text.setText("TU SALDO ES $ " + saldo.toString());
 		
+		text.setBackground(new Color(229, 57, 53));
+		
 		this.add(text);
 		
 	}
