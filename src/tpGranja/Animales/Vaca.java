@@ -15,7 +15,7 @@ public class Vaca extends AbstractAnimal implements IRecolectable {
 	@Override
 	public Leche Recolectar() {
 		// Cada 1 alimentadas y 1 cuidadas, la vaca da leche	
-		if(_contadorComida == 1 && _cuidado) {			
+		if(_contadorComida >= 1 && _cuidado) {			
 			_contadorComida = 0;
 			_cuidado = false;	
 			return new Leche();

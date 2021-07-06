@@ -142,7 +142,7 @@ public class VentanaMercado extends JFrame {
 					} 
 		            catch (FondosInsuficientesException | InstantiationException | IllegalAccessException | ClassNotFoundException | AlimentoIncompatibleException | AplicableIncompatibleException e) 
 		            {				
-						JOptionPane.showMessageDialog(null, "Excepcion -> " + e.toString() );
+						JOptionPane.showMessageDialog(null, "Excepción -> " + e.toString() );
 						
 					}
 		        }
@@ -196,6 +196,10 @@ public class VentanaMercado extends JFrame {
 			VentanaMain.Refresh();
 			JOptionPane.showMessageDialog(null, "Cuidado correctamente !");
 			this.dispose(); // Cierra la ventana de agregar
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "El producto no es el adecuado " );
 		}
 		
 		

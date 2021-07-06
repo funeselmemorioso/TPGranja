@@ -15,7 +15,7 @@ public class Oveja extends AbstractAnimal implements IRecolectable {
 	@Override
 	public Lana Recolectar() {		
 		// Cada cuatro alimentadas y una cuidada la oveja da lana
-		if(_contadorComida == 4 && _cuidado) {			
+		if(_contadorComida >= 4 && _cuidado) {			
 			_contadorComida = 0;
 			_cuidado = false;
 			return new Lana();

@@ -15,7 +15,7 @@ public class Gallina extends AbstractAnimal implements IRecolectable {
 	@Override
 	public Huevo Recolectar() {	
 		// Cada tres alimentadas y una cuidada, da un huevo
-		if(_contadorComida == 3 && _cuidado) {			
+		if(_contadorComida >= 3 && _cuidado) {			
 			_contadorComida = 0;
 			_cuidado = false;
 			return new Huevo();

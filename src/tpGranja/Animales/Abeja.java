@@ -14,7 +14,7 @@ public class Abeja extends AbstractAnimal  implements IRecolectable {
 	@Override
 	public Miel Recolectar() {
 		// Cada cinco alimentadas y una cuidada, da miel
-		if(_contadorComida == 5 && _cuidado) {			
+		if(_contadorComida >= 5 && _cuidado) {			
 			_contadorComida = 0;
 			_cuidado = false;
 			return new Miel();

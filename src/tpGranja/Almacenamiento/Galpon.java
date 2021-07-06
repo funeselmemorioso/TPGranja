@@ -1,4 +1,4 @@
-package tpGranja.Almacenamiento;
+/*package tpGranja.Almacenamiento;
 
 import java.util.HashMap;
 
@@ -32,4 +32,4 @@ public class Galpon {
 	}
 	
 	
-}
+}*/

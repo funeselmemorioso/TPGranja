@@ -57,36 +57,14 @@ public class Mercado {
 	
 	public List<IComercializable> ListarItemsDisponibles(){
 		return _items;
-	}
-	
-	/*public List<IComercializable> ListarPlantasDisponibles(){
-		return _items
-				  .stream()
-				  .filter(c -> AbstractPlanta.class.isAssignableFrom(c.getClass()))
-				  .collect(Collectors.toList());
-	}
-	
-	public List<IComercializable> ListarAnimalesDisponibles(){	
-		return _items
-				  .stream()
-				  .filter(c -> AbstractAnimal.class.isAssignableFrom(c.getClass()))
-				  .collect(Collectors.toList());			
 	}	
-	
-	public List<IComercializable> ListarProductosDeCuidadoDisponibles(){	
-		return _items
-				  .stream()
-				  .filter(c -> IAplicable.class.isAssignableFrom(c.getClass()))
-				  .collect(Collectors.toList());			
-	}*/	
 	
 	public <T> List<T> ListarGenerico(Class<T> c) {
 	    return _items.stream()
 	            .filter(c::isInstance)
 	            .map(c::cast)
 	            .collect(Collectors.toList());
-	}
-	
+	}	
 	
 	private void CargarProductosDefault() {
 		// Animales iniciales

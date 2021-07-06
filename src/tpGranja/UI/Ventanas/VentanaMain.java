@@ -3,7 +3,6 @@ package tpGranja.UI.Ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -21,10 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import tpGranja.Almacenamiento.Galpon;
 import tpGranja.Comportamientos.ICosechable;
 import tpGranja.Comportamientos.IRecolectable;
 import tpGranja.Dinero.Billetera;
@@ -33,7 +27,6 @@ import tpGranja.Mercado.Mercado;
 import tpGranja.Naturaleza.Agua;
 import tpGranja.Plantas.AbstractPlanta;
 import tpGranja.Productos.AbstractProducto;
-import tpGranja.SeresVivos.AbstractSerVivo;
 import tpGranja.Terreno.Parcela;
 
 class PanelBotones extends JPanel {
@@ -68,7 +61,6 @@ class PanelBotones extends JPanel {
 }
 
 
-
 class PanelParcela extends JPanel{
 	
 	public PanelParcela(Parcela parcela) {
@@ -81,17 +73,11 @@ class PanelParcela extends JPanel{
 			b1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {					
 					try 
-					{
-						/*VentanaAgregar v = new VentanaAgregar(parcela.GetId());				
-						v.setVisible(true);						
-						v.setSize(500, 500);*/
-						
+					{	
 						VentanaMercado v = new VentanaMercado("agregarParcela",parcela.GetId(), "compra");				
 						v.setVisible(true);				
 						v.setSize(500, 500);
-						v.setTitle("Granja - Mercado - Parcela # " +parcela.GetId());	
-						
-						
+						v.setTitle("Granja - Mercado - Parcela # " + parcela.GetId());	
 					}
 					catch(Exception ex) 
 					{						
@@ -111,8 +97,7 @@ class PanelParcela extends JPanel{
 			
 			if(parcela.GetcontenidoParcela() instanceof AbstractPlanta) {
 				// Si es una planta, el unico alimento es agua
-				btnAlimentar.setText("Regar");
-				
+				btnAlimentar.setText("Regar");				
 				btnAlimentar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {					
 						AbstractPlanta p = (AbstractPlanta)parcela.GetcontenidoParcela();
@@ -126,8 +111,6 @@ class PanelParcela extends JPanel{
 						parcela.SetcontenidoParcela(p);				
 					}			
 				});	
-				
-				
 			}
 			else
 			{
@@ -149,10 +132,7 @@ class PanelParcela extends JPanel{
 			});	
 			btnVender.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {					
-					VentanaMercado v = new VentanaMercado("", parcela.GetId(), "venta");				
-					//v.setVisible(true);				
-					//v.setSize(500, 500);				
-					
+					VentanaMercado v = new VentanaMercado("", parcela.GetId(), "venta");
 				}			
 			});	
 			
@@ -192,29 +172,33 @@ class PanelParcela extends JPanel{
 			
 			
 			// Mostrar la imagen
-			try 
-			{ 
-				String nombreClase = parcela.GetcontenidoParcela().getClass().getName().split("\\.")[2].toLowerCase();
-			    System.out.println(nombreClase);
-				BufferedImage image = ImageIO.read(new File("imagenes/"+nombreClase+".png"));	
-			    JLabel picLabel = new JLabel(new ImageIcon(image));
-			    picLabel.setMaximumSize(new Dimension(10, 10));
-			    this.add(picLabel, BorderLayout.CENTER);		          
-	        } 
-		    catch (IOException ex) 
-		    {
-		    	System.out.println(ex.toString());
-	        }
+			MostrarImagen(parcela);
+			
 			
 		}
 		
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));		
 	}
+	
+	private void MostrarImagen(Parcela parcela) {		
+		try 
+		{ 
+			String nombreClase = parcela.GetcontenidoParcela().getClass().getName().split("\\.")[2].toLowerCase();		
+			BufferedImage image = ImageIO.read(new File("imagenes/"+nombreClase+".png"));	
+		    JLabel picLabel = new JLabel(new ImageIcon(image));
+		    picLabel.setMaximumSize(new Dimension(10, 10));
+		    this.add(picLabel, BorderLayout.CENTER);		          
+        } 
+	    catch (IOException ex) 
+	    {
+	    	System.out.println(ex.toString());
+        }
+	}
 }
 
 
 class PanelPrincipal extends JPanel{	
-	
+	// El panel principal contiene a las parcelas
 	public PanelPrincipal(List<Parcela> parcelas) {
 		this.setLayout(new GridLayout(3, 3));		
 		for(int a = 0; a < parcelas.size(); a++) {			
@@ -228,24 +212,17 @@ class PanelPrincipal extends JPanel{
 public class VentanaMain extends JFrame {
 	
 	private static Double DINERO_INICIAL = 2000.00;
-	public static Mercado mercado = new Mercado();
-	public static Galpon galpon = new Galpon();
+	public static Mercado mercado = new Mercado();	
 	public static Billetera billetera = new Billetera(DINERO_INICIAL);
 	public static PanelPrincipal panelPrincipal;
 	public static List<Parcela> parcelas = new ArrayList<Parcela>();
-	public static JPanel panel;
+	public static JPanel panel;	
 	
-	
-	public static void Refresh() {
-		
+	public static void Refresh() {		
 		panel.revalidate();
-		panel.repaint();
-		
-		
-		panelPrincipal = new PanelPrincipal(parcelas);
-		
-		panel.removeAll();
-		
+		panel.repaint();	
+		panelPrincipal = new PanelPrincipal(parcelas);		
+		panel.removeAll();		
 		panel.add(panelPrincipal);
 	}
 	
@@ -256,26 +233,19 @@ public class VentanaMain extends JFrame {
 		}
 		
 		panel = new JPanel();							
-		panel.setLayout(new GridLayout(1, 1));
-		
+		panel.setLayout(new GridLayout(1, 1));		
 		panelPrincipal = new PanelPrincipal(parcelas);
-		panel.add(panelPrincipal);
-		
-		this.add(panel);		
-		
+		panel.add(panelPrincipal);		
+		this.add(panel);	
 		PanelBotones pb = new PanelBotones();					
 		this.add(pb, BorderLayout.SOUTH);	
 	}
-	
-	
-	
 	
 	public static void main(String[] args) {
 		VentanaMain p1 = new VentanaMain();
 		p1.setVisible(true);
 		p1.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		p1.setSize(1450, 1000);
-		p1.setTitle("Granja - Pantalla Principal");
-		
+		p1.setTitle("Granja - Pantalla Principal");		
 	}
 }

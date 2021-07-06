@@ -24,6 +24,5 @@ public class PlantaTrigo extends AbstractPlanta implements IComestible{
 		return null;
 	}
 	
-	
 
 }
